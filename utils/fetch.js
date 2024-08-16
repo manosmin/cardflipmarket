@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const JSON_DIR = path.join(__dirname, '../json');
+const DOWNLOAD_HISTORY_FILE = path.join(JSON_DIR, 'downloaded_files.txt');
 
 // function to fetch and process the JSON file
 const processOracleCards = async () => {
@@ -32,40 +33,53 @@ const processOracleCards = async () => {
         const jsonFileName = path.basename(download_uri);
         const jsonFilePath = path.join(JSON_DIR, jsonFileName);
 
-        // check if the file already exists
-        if (fs.existsSync(jsonFilePath)) {
-            console.log(`File ${jsonFileName} already exists. Skipping download.`);
-            return;
-        } else {
-            // download the JSON file from the download_uri
-            console.log(`Downloading new JSON file from ${download_uri}`);
-            const jsonResponse = await axios.get(download_uri, { responseType: 'stream' });
-
-            // ensure the JSON directory exists
-            if (!fs.existsSync(JSON_DIR)) {
-                fs.mkdirSync(JSON_DIR, { recursive: true });
-            }
-
-            // save the file to the JSON folder
-            const writer = fs.createWriteStream(jsonFilePath);
-            jsonResponse.data.pipe(writer);
-
-            await new Promise((resolve, reject) => {
-                writer.on('finish', resolve);
-                writer.on('error', reject);
-            });
-
-            console.log(`JSON file saved to ${jsonFilePath}`);
+        // Check if the JSON directory exists, and create it if necessary
+        if (!fs.existsSync(JSON_DIR)) {
+            fs.mkdirSync(JSON_DIR, { recursive: true });
         }
 
-        // read the JSON file and process the data
+        // Read the download history file (create it if it doesn't exist)
+        let downloadedFiles = [];
+        if (fs.existsSync(DOWNLOAD_HISTORY_FILE)) {
+            downloadedFiles = fs.readFileSync(DOWNLOAD_HISTORY_FILE, 'utf8').split('\n').filter(Boolean);
+        }
+
+        // Check if the file has already been downloaded
+        if (downloadedFiles.includes(jsonFileName)) {
+            console.log(`File ${jsonFileName} has already been processed. Skipping download.`);
+            return;
+        }
+
+        // Download the JSON file from the download_uri
+        console.log(`Downloading new JSON file from ${download_uri}`);
+        const jsonResponse = await axios.get(download_uri, { responseType: 'stream' });
+
+        // Save the file to the JSON folder
+        const writer = fs.createWriteStream(jsonFilePath);
+        jsonResponse.data.pipe(writer);
+
+        await new Promise((resolve, reject) => {
+            writer.on('finish', resolve);
+            writer.on('error', reject);
+        });
+
+        console.log(`JSON file saved to ${jsonFilePath}`);
+
+        // Read the JSON file and process the data
         const fileData = fs.readFileSync(jsonFilePath, 'utf8');
         const jsonData = JSON.parse(fileData).filter(item => item.mtgo_id);
 
-        // update or insert data into the collections
+        // Update or insert data into the collections
         await updateOrInsertCards(jsonData);
         await updateOrInsertPrices(jsonData, updated_at);
         console.log(`New data inserted at ${new Date().toLocaleString("en-US", { timeZone: "UTC" })} UTC`);
+
+        // Delete the JSON file after processing
+        fs.unlinkSync(jsonFilePath);
+        console.log(`JSON file ${jsonFileName} deleted after processing.`);
+
+        // Add the filename to the download history file
+        fs.appendFileSync(DOWNLOAD_HISTORY_FILE, jsonFileName + '\n');
 
     } catch (error) {
         console.error('Error processing Oracle Cards:', error);
