@@ -5,8 +5,8 @@ const runScheduledTask = async () => {
     // run the processOracleCards once initially
     processOracleCards();
 
-    // schedule processOracleCards to run at 9:10 and 21:10 UTC every day
-    cron.schedule('10 0,12 * * *', () => {
+    // schedule processOracleCards to run at 00:30 UTC every day
+    cron.schedule('30 0 * * *', () => {
         console.log('Running scheduled task: processOracleCards');
         processOracleCards();
     });

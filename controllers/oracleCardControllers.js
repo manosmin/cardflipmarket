@@ -4,10 +4,10 @@ const priceThreshold = 0;
 const percentageThreshold = -5;
 
 const timeRanges = {
-    'today': 3,
-    '3-days': 7,
-    'weekly': 15,
-    '15-days': 31
+    'today': 1,
+    '3-days': 3,
+    'weekly': 7,
+    '15-days': 15
 };
 
 export const getScryfallData = async (req, res) => {

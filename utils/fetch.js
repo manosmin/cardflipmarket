@@ -12,7 +12,7 @@ const JSON_DIR = path.join(__dirname, '../json');
 // function to fetch and process the JSON file
 const processOracleCards = async () => {
     try {
-        console.log(`Fetching new data from Scryfall API at ${new Date().toLocaleString("en-US", { timeZone: "UTC" })}`)
+        console.log(`Fetching new data from Scryfall API at ${new Date().toLocaleString("en-US", { timeZone: "UTC" })} UTC`)
 
         // fetch the bulk data list from the API
         const bulkDataResponse = await axios.get('https://api.scryfall.com/bulk-data');
@@ -65,7 +65,7 @@ const processOracleCards = async () => {
         // update or insert data into the collections
         await updateOrInsertCards(jsonData);
         await updateOrInsertPrices(jsonData, updated_at);
-        console.log(`New data inserted at ${new Date().toLocaleString("en-US", { timeZone: "UTC" })}`);
+        console.log(`New data inserted at ${new Date().toLocaleString("en-US", { timeZone: "UTC" })} UTC`);
 
     } catch (error) {
         console.error('Error processing Oracle Cards:', error);
