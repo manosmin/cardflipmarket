@@ -1,54 +1,65 @@
 import OracleCard from '../models/OracleCard.js';
 import OracleCardPrices from '../models/OracleCardPrices.js';
 
-// function to get the next available integer key for a document
-const getNextKey = (pricesMap) => {
-    const keys = Array.from(pricesMap.keys()).map(Number); // Convert keys to numbers
-    const maxKey = keys.length > 0 ? Math.max(...keys) : 0;
-    return (maxKey + 1).toString(); // Increment max key by 1 and convert to string
-};
-
 // function to append prices or insert new records
 export const updateOrInsertPrices = async (jsonData, updatedAt) => {
     try {
-        console.log("Importing OracleCardPrices data")
+        console.log("Importing OracleCardPrices data");
+
+        const bulkOps = [];
+
         for (const item of jsonData) {
             const { mtgo_id, prices } = item;
 
-            // find existing record by mtgo_id
+            // get the existing record if it exists
             const existingRecord = await OracleCardPrices.findOne({ mtgo_id });
 
             if (existingRecord) {
-                // get the next key for the prices map
-                const nextKey = getNextKey(existingRecord.prices);
+                // calculate the next key for prices
+                const currentKeys = Object.keys(existingRecord.prices).map(key => parseInt(key, 10));
+                const nextKey = (Math.max(...currentKeys, 0) + 1).toString();
 
-                // append new price entry with the calculated key
-                existingRecord.prices.set(nextKey, {
-                    eur: prices.eur,
-                    tix: prices.tix,
-                    date: updatedAt // use the updatedAt from the API response
+                // prepare the update operation
+                bulkOps.push({
+                    updateOne: {
+                        filter: { mtgo_id },
+                        update: {
+                            $set: {
+                                [`prices.${nextKey}`]: {
+                                    eur: prices.eur,
+                                    tix: prices.tix,
+                                    date: updatedAt
+                                }
+                            }
+                        }
+                    }
                 });
-
-                await existingRecord.save();
             } else {
-                // if no record exists, start with key '1'
+                // if no existing record, insert a new document
                 const newPriceEntry = {
                     '1': {
                         eur: prices.eur,
                         tix: prices.tix,
-                        date: updatedAt // use the updatedAt date from the API response
+                        date: updatedAt
                     }
                 };
 
-                // insert new record
-                const newRecord = new OracleCardPrices({
-                    mtgo_id,
-                    prices: newPriceEntry
+                bulkOps.push({
+                    insertOne: {
+                        document: {
+                            mtgo_id,
+                            prices: newPriceEntry
+                        }
+                    }
                 });
-
-                await newRecord.save();
             }
         }
+
+        // perform bulk operation
+        if (bulkOps.length > 0) {
+            await OracleCardPrices.bulkWrite(bulkOps);
+        }
+
         console.log("OracleCardPrices data updated successfully");
 
     } catch (error) {

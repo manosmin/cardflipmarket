@@ -25,7 +25,7 @@ const getLocalCronExpression = (targetHourUTC, targetMinuteUTC) => {
 
 const runScheduledTask = async () => {
     // run processOracleCards once initially
-    // await processOracleCards();
+    await processOracleCards();
 
     // calculate the cron expression based on the local time equivalent of 9:30 AM UTC
     const cronExpression = getLocalCronExpression(9, 30);
