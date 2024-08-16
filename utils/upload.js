@@ -1,6 +1,13 @@
 import OracleCard from '../models/OracleCard.js';
 import OracleCardPrices from '../models/OracleCardPrices.js';
 
+// function to get the next available integer key for a document
+const getNextKey = (pricesMap) => {
+    const keys = Array.from(pricesMap.keys()).map(Number); // Convert keys to numbers
+    const maxKey = keys.length > 0 ? Math.max(...keys) : 0;
+    return (maxKey + 1).toString(); // Increment max key by 1 and convert to string
+};
+
 // function to append prices or insert new records
 export const updateOrInsertPrices = async (jsonData, updatedAt) => {
     try {
@@ -16,9 +23,8 @@ export const updateOrInsertPrices = async (jsonData, updatedAt) => {
 
             if (existingRecord) {
                 // calculate the next key for prices
-                const currentKeys = Object.keys(existingRecord.prices).map(key => parseInt(key, 10));
-                const nextKey = (Math.max(...currentKeys, 0) + 1).toString();
-
+                const nextKey = getNextKey(existingRecord.prices);
+                
                 // prepare the update operation
                 bulkOps.push({
                     updateOne: {
