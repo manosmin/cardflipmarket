@@ -23,7 +23,7 @@ function ChartPopover({ mtgo_id, onClose }) {
 
     
     const chartData = priceHistory ? {
-        labels: priceHistory.tixPriceHistory.map(entry => new Date(entry.date).toLocaleString("en-GB", {timeZone: "UTC"})),
+        labels: priceHistory.tixPriceHistory.map(entry => new Date(entry.date).toLocaleString("en-GB", {year: "numeric", month: "numeric", day: "numeric"})),
         datasets: [{
             data: priceHistory.tixPriceHistory.map(entry => entry.tix),
             borderColor: 'rgb(34 211 238)'
