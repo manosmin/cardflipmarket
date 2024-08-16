@@ -62,7 +62,7 @@ function ChartPopover({ mtgo_id, onClose }) {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center">
-            <div className="relative bg-slate-800 border border-slate-600 rounded-xl md:w-3/6 w-auto md:p-12 p-4 text-slate-400">
+            <div className="relative bg-zinc-800 border border-zinc-600 rounded-xl md:w-3/6 w-auto md:p-12 p-4 text-zinc-400">
                 <button className="absolute top-2 right-0 px-4 py-2" onClick={onClose}><IoClose size={25} />
                 </button>
                 {chartData ? (
