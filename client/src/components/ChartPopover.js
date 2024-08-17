@@ -62,9 +62,10 @@ function ChartPopover({ mtgo_id, onClose }) {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center">
-            <div className="relative bg-amber-800 border border-amber-600 rounded-xl md:w-3/6 w-auto md:p-12 p-4 text-amber-400">
-                <button className="absolute top-2 right-0 px-4 py-2" onClick={onClose}><IoClose size={25} />
-                </button>
+            <div className="relative bg-amber-800 border border-amber-600 rounded-xl md:w-1/2 w-fit p-8 text-amber-400">
+            <div className='flex mb-4 font-medium justify-between'>
+                <p>Price History</p>
+                <button onClick={onClose}><IoClose size={25} /></button></div>
                 {chartData ? (
                     <Line data={chartData} options={chartOptions} />
                 ) : (
