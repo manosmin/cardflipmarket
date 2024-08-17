@@ -26,7 +26,7 @@ function ChartPopover({ mtgo_id, onClose }) {
         labels: priceHistory.tixPriceHistory.map(entry => new Date(entry.date).toLocaleString("en-GB", {year: "numeric", month: "numeric", day: "numeric"})),
         datasets: [{
             data: priceHistory.tixPriceHistory.map(entry => entry.tix),
-            borderColor: 'rgb(34 211 238)'
+            borderColor: 'rgb(52 211 153)'
         }]
     } : null;
 
@@ -37,19 +37,19 @@ function ChartPopover({ mtgo_id, onClose }) {
             x: {
                 display: true,
                 ticks: {
-                    color: 'rgb(226 232 240)',
+                    color: 'rgb(255 251 235)',
                 },
                 grid: {
-                    color: 'rgb(71 85 105)',
+                    color: 'rgb(254 243 199)',
                 },
             },
             y: {
                 display: true,
                 ticks: {
-                    color: 'rgb(226 232 240)',
+                    color: 'rgb(255 251 235)',
                 },
                 grid: {
-                    color: 'rgb(71 85 105)',
+                    color: 'rgb(254 243 199)',
                 },
             },
         },
@@ -62,7 +62,7 @@ function ChartPopover({ mtgo_id, onClose }) {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center">
-            <div className="relative bg-zinc-800 border border-zinc-600 rounded-xl md:w-3/6 w-auto md:p-12 p-4 text-zinc-400">
+            <div className="relative bg-amber-800 border border-amber-600 rounded-xl md:w-3/6 w-auto md:p-12 p-4 text-amber-400">
                 <button className="absolute top-2 right-0 px-4 py-2" onClick={onClose}><IoClose size={25} />
                 </button>
                 {chartData ? (

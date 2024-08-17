@@ -31,8 +31,8 @@ function Table({ data }) {
 
     return (
         <div className="relative overflow-x-auto">
-            <table className="text-sm w-full text-left rtl:text-right text-zinc-200 md:mb-80 sm:mb-36">
-                <thead className="text-zinc-400 text-md uppercase cursor-pointer bg-zinc-700">
+            <table className="text-sm w-full text-left rtl:text-right text-amber-200 md:mb-80 sm:mb-36">
+                <thead className="text-amber-400 text-md uppercase cursor-pointer bg-amber-700">
                     <tr>
                         <th scope="col" className="px-6 py-3 hover:text-white" onClick={() => handleSort('mtgo_id')}>
                             MTGO ID
@@ -60,7 +60,7 @@ function Table({ data }) {
                 </thead>
                 <tbody>
                     {sortedData && sortedData.map((card) => (
-                        <tr key={card._id} className="odd:bg-zinc-900 even:bg-zinc-800 border-b border-zinc-700">
+                        <tr key={card._id} className="odd:bg-amber-900 even:bg-amber-800 border-b border-amber-700 text-amber-100">
                             <th 
                                 scope="row" 
                                 className="px-6 py-4 whitespace-nowrap"
@@ -74,13 +74,13 @@ function Table({ data }) {
                                     {card.name}
                                 </a>
                                 {hoveredCard === card && (
-                                    <div className="absolute lg:top-4 lg:right-24 md:rounded-xl rounded-lg bg-zinc-600 p-2 lg:w-1/3 md:w-7/12 sm:w-2/3 z-10">
+                                    <div className="absolute lg:top-4 lg:right-24 md:rounded-xl rounded-lg bg-amber-600 p-2 lg:w-1/3 md:w-7/12 sm:w-2/3 z-10">
                                         <img src={card.image} alt={card.name} className="md:rounded-xl rounded-lg w-full h-auto" />
                                     </div>
                                 )}
                             </td>
                             <td className="px-6 py-4">
-                                {<i title={`${card.set.toUpperCase()}`} alt={`${card.set.toUpperCase()}`} className={`p-2 icon-container bg-zinc-200 rounded-full ss ss-${card.set} ss-${card.rarity}`}></i>}
+                                {<i title={`${card.set.toUpperCase()}`} alt={`${card.set.toUpperCase()}`} className={`p-2 icon-container bg-amber-50 rounded-full ss ss-${card.set} ss-${card.rarity}`}></i>}
                             </td>
                             <td className="px-6 py-4">
                                 {card.before_tix}
