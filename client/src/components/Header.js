@@ -5,11 +5,14 @@ function Header({ onFetchData }) {
     <header className='sticky top-0 z-10'>
       <nav className="border-amber-200 px-4 lg:px-6 py-2.5 bg-amber-950  text-amber-300">
         <div className="flex lg:flex-row flex-col flex-wrap justify-between items-center">
-          <p className='text-base font-bold text-amber-100 uppercase cursor-pointer'><a href='/#' rel='noreferrer'>CardFlipMarket</a></p>
-          <ul className="flex lg:flex-row lg:space-x-8 my-2 text-base font-bold">
+          <div className='lg:block hidden'>
+            <img alt='logo' className='h-8 ' src='https://media.tenor.com/ANy4YvDgu7UAAAAi/pepe-money.gif'/>
+            <a href='/#' className='font-bold absolute bottom-3 left-16 text-amber-100 uppercase cursor-pointer' rel='noreferrer'>CardFlipMarket</a>
+          </div>
+          <ul className="flex lg:flex-row lg:space-x-8 my-2 font-bold">
             <li>
               <button
-                className="block py-2 pr-4 pl-3 lg:border-0 lg:p-0 text-amber-400  hover:text-white border-amber-700 uppercase"
+                className="block py-2 pr-4 pl-3 lg:border-0 lg:p-0 text-amber-400  hover:text-amber-100 border-amber-700 uppercase"
                 onClick={() => onFetchData('today')}
               >
                 Today
@@ -17,7 +20,7 @@ function Header({ onFetchData }) {
             </li>
             <li>
               <button
-                className="block py-2 pr-4 pl-3 lg:border-0 lg:p-0 text-amber-400  hover:text-white  border-amber-700 uppercase"
+                className="block py-2 pr-4 pl-3 lg:border-0 lg:p-0 text-amber-400  hover:text-amber-100  border-amber-700 uppercase"
                 onClick={() => onFetchData('3-days')}
               >
                 3-Days
@@ -25,7 +28,7 @@ function Header({ onFetchData }) {
             </li>
             <li>
               <button
-                className="block py-2 pr-4 pl-3 lg:border-0 lg:p-0 text-amber-400  hover:text-white border-amber-700 uppercase"
+                className="block py-2 pr-4 pl-3 lg:border-0 lg:p-0 text-amber-400  hover:text-amber-100 border-amber-700 uppercase"
                 onClick={() => onFetchData('weekly')}
               >
                 Weekly
@@ -33,7 +36,7 @@ function Header({ onFetchData }) {
             </li>
             <li>
               <button
-                className="block py-2 pr-4 pl-3 lg:border-0 lg:p-0 text-amber-400  hover:text-white border-amber-700 uppercase"
+                className="block py-2 pr-4 pl-3 lg:border-0 lg:p-0 text-amber-400  hover:text-amber-100 border-amber-700 uppercase"
                 onClick={() => onFetchData('15-days')}
               >
                 15-Days
