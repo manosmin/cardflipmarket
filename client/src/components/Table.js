@@ -30,8 +30,8 @@ function Table({ data }) {
     };
 
     return (
-        <div className="relative overflow-x-auto min-h-screen">
-            <table className="text-sm w-full text-left rtl:text-right text-zinc-200 md:mb-72 sm:mb-36">
+        <div className="relative overflow-x-auto">
+            <table className="text-sm w-full text-left rtl:text-right text-zinc-200 md:mb-80 sm:mb-36">
                 <thead className="text-zinc-400 text-md uppercase cursor-pointer bg-zinc-700">
                     <tr>
                         <th scope="col" className="px-6 py-3 hover:text-white" onClick={() => handleSort('mtgo_id')}>
