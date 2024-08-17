@@ -22,7 +22,7 @@ function App() {
   }, []);
 
   return (
-    <div className='bg-amber-950 flex flex-col min-h-screen'>
+    <div className='bg-amber-900 flex flex-col min-h-screen'>
           <Header onFetchData={fetchData} />
           <Table data={data} />
           <Footer/>

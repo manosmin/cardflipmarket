@@ -34,24 +34,24 @@ function Table({ data }) {
             <table className="text-sm w-full text-left rtl:text-right text-amber-200 md:mb-80 sm:mb-36">
                 <thead className="text-amber-400 text-md uppercase cursor-pointer bg-amber-950">
                     <tr>
-                        <th scope="col" className="px-6 py-3 hover:text-white" onClick={() => handleSort('mtgo_id')}>
+                        <th scope="col" className="px-6 py-3 hover:text-amber-100" onClick={() => handleSort('mtgo_id')}>
                             MTGO ID
                         </th>
-                        <th scope="col" className="px-6 py-3 hover:text-white" onClick={() => handleSort('name')}>
+                        <th scope="col" className="px-6 py-3 hover:text-amber-100" onClick={() => handleSort('name')}>
                             Name
                         </th>
-                        <th scope="col" className="px-6 py-3 hover:text-white" onClick={() => handleSort('set')}>
+                        <th scope="col" className="px-6 py-3 hover:text-amber-100" onClick={() => handleSort('set')}>
                             Set
                         </th>
-                        <th scope="col" className="px-6 py-3 hover:text-white" onClick={() => handleSort('before_tix')}>
+                        <th scope="col" className="px-6 py-3 hover:text-amber-100" onClick={() => handleSort('before_tix')}>
                             TIX Before
                         </th>
-                        <th scope="col" className="px-6 py-3 hover:text-white" onClick={() => handleSort('after_tix')}>
+                        <th scope="col" className="px-6 py-3 hover:text-amber-100" onClick={() => handleSort('after_tix')}>
                             TIX After
                         </th>
                         <th 
                             scope="col" 
-                            className="px-6 py-3 hover:text-white" 
+                            className="px-6 py-3 hover:text-amber-100" 
                             onClick={() => handleSort('percentage_difference')}
                         >
                             TIX Diff %
