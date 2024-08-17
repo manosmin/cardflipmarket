@@ -32,7 +32,7 @@ function Table({ data }) {
     return (
         <div className="relative overflow-x-auto">
             <table className="text-sm w-full text-left rtl:text-right text-amber-200 md:mb-80 sm:mb-36">
-                <thead className="text-amber-400 text-md uppercase cursor-pointer bg-amber-700">
+                <thead className="text-amber-400 text-md uppercase cursor-pointer bg-amber-950">
                     <tr>
                         <th scope="col" className="px-6 py-3 hover:text-white" onClick={() => handleSort('mtgo_id')}>
                             MTGO ID
