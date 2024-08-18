@@ -31,7 +31,7 @@ function Table({ data }) {
 
     return (
         <div className="relative overflow-x-auto">
-            <table className="text-sm w-full text-left rtl:text-right text-amber-200 md:mb-80 sm:mb-36">
+            <table className="text-xs lg:text-sm w-full text-left font-medium rtl:text-right text-amber-200 md:mb-80 sm:mb-36">
                 <thead className="text-amber-400 text-md uppercase cursor-pointer bg-amber-950">
                     <tr>
                         <th scope="col" className="px-6 py-3 hover:text-amber-100" onClick={() => handleSort('mtgo_id')}>
@@ -80,7 +80,7 @@ function Table({ data }) {
                                 )}
                             </td>
                             <td className="px-6 py-4">
-                                {<i title={`${card.set.toUpperCase()}`} alt={`${card.set.toUpperCase()}`} className={`p-2 icon-container bg-amber-50 rounded-full ss ss-${card.set} ss-${card.rarity}`}></i>}
+                                {<i title={`${card.set.toUpperCase()}`} alt={`${card.set.toUpperCase()}`} className={`w-6 h-6 items-center flex justify-center icon-container bg-amber-50 rounded-full ss ss-${card.set} ss-${card.rarity}`}></i>}
                             </td>
                             <td className="px-6 py-4">
                                 {card.before_tix}
