@@ -1,6 +1,6 @@
 import OracleCardPrices from '../models/OracleCardPrices.js';
 
-const priceThreshold = 0.25;
+const priceThreshold = 0.10;
 const percentageThreshold = 20;
 
 const timeRanges = {
