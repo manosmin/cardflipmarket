@@ -5,9 +5,9 @@ const percentageThreshold = 25;
 
 const timeRanges = {
     'today': 2,
-    '3-days': 3,
-    'weekly': 7,
-    '15-days': 15
+    '3-days': 4,
+    'weekly': 8,
+    '15-days': 16
 };
 
 export const getScryfallData = async (req, res) => {

@@ -62,7 +62,7 @@ function ChartPopover({ mtgo_id, onClose }) {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center">
-            <div className="relative bg-amber-800 border border-amber-600 rounded-xl md:w-1/2 w-fit p-8 text-amber-400">
+            <div className="relative bg-zinc-800 border border-zinc-600 rounded-xl md:w-1/2 w-fit p-8 text-zinc-400">
             <div className='flex mb-4 font-medium justify-between'>
                 <p>Price History</p>
                 <button onClick={onClose}><IoClose size={25} /></button></div>
