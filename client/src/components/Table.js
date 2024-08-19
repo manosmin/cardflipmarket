@@ -31,7 +31,7 @@ function Table({ data }) {
 
     return (
         <div className="relative overflow-x-auto">
-            <table className="text-xs lg:text-sm w-full text-left rtl:text-right text-zinc-200 md:mb-80 sm:mb-36">
+            <table className="text-xs lg:text-base w-full text-left rtl:text-right text-zinc-200 md:mb-80 sm:mb-36">
                 <thead className="text-zinc-400 text-md uppercase cursor-pointer bg-zinc-950">
                     <tr>
                         <th scope="col" className="lg:block hidden px-3 py-2 hover:text-zinc-100" onClick={() => handleSort('mtgo_id')}>
