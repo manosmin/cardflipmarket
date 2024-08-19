@@ -75,11 +75,24 @@ export const updateOrInsertPrices = async (jsonData, updatedAt) => {
 
 export const updateOrInsertCards = async (jsonData) => {
     try {
-        console.log("Importing OracleCard data")
-        await OracleCard.insertMany(jsonData, {ordered: false});
-        console.log("OracleCard data inserted successfully");
+        console.log("Importing OracleCard data");
+
+        // create an array of bulk operations
+        const bulkOps = jsonData.map((card) => ({
+            updateOne: {
+                filter: { mtgo_id: card.mtgo_id }, // match document by mtgo_id
+                update: { $set: card }, // update the document with new data
+                upsert: true, // insert if the document does not exist
+            },
+        }));
+
+        // execute the bulk operations
+        await OracleCard.bulkWrite(bulkOps);
+
+        console.log("OracleCard data updated successfully");
     } catch (error) {
-        console.error("Error inserting OracleCard data", error);
+        console.error("Error updating OracleCard data", error);
     }
 };
+
 
