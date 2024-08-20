@@ -4,7 +4,7 @@ import ChartPopover from './ChartPopover';
 function Table({ data }) {
     const [sortConfig, setSortConfig] = useState({ key: 'percentage_difference', direction: 'desc' });
     const [hoveredCard, setHoveredCard] = useState(null);
-    const [selectedCardId, setSelectedCardId] = useState(null);
+    const [expandedCardId, setExpandedCardId] = useState(null);
 
     const handleSort = (key) => {
         let direction = 'desc';
@@ -25,13 +25,13 @@ function Table({ data }) {
             return 0;
         });
 
-    const handleChartClick = (mtgo_id) => {
-        setSelectedCardId(selectedCardId === mtgo_id ? null : mtgo_id);
+    const toggleExpandRow = (mtgo_id) => {
+        setExpandedCardId(expandedCardId === mtgo_id ? null : mtgo_id);
     };
 
     return (
         <div className="relative overflow-x-auto">
-            <table className="text-xs lg:text-base w-full text-left rtl:text-right text-zinc-200 md:mb-80 sm:mb-36">
+            <table className="text-xs lg:text-sm w-full text-left rtl:text-right text-zinc-200 md:mb-80 sm:mb-36">
                 <thead className="text-zinc-400 text-md uppercase cursor-pointer bg-zinc-950">
                     <tr>
                         <th scope="col" className="lg:block hidden px-3 py-2 hover:text-zinc-100" onClick={() => handleSort('mtgo_id')}>
@@ -60,50 +60,60 @@ function Table({ data }) {
                 </thead>
                 <tbody>
                     {sortedData && sortedData.map((card) => (
-                        <tr key={card._id} className="odd:bg-zinc-900 even:bg-zinc-800 border-b border-zinc-700 text-zinc-100">
-                            <th 
-                                scope="row" 
-                                className="lg:block hidden px-3 py-4 whitespace-nowrap"
+                        <React.Fragment key={card._id}>
+                            <tr 
+                                className="odd:bg-zinc-900 even:bg-zinc-800 border-b border-zinc-700 text-zinc-100"
                             >
-                                {card.mtgo_id}
-                            </th>
-                            <td className="px-3 py-4 relative">
-                                <a className='hover:underline cursor-pointer' href={card.cardmarket} rel="noreferrer" target='_blank'
-                                onMouseEnter={() => setHoveredCard(card)}
-                                onMouseLeave={() => setHoveredCard(null)}>
-                                    {card.name}
-                                </a>
-                                {hoveredCard === card && (
-                                    <div className="absolute lg:top-4 lg:right-24 md:rounded-xl rounded-lg bg-zinc-600 p-2 lg:w-1/3 md:w-7/12 sm:w-2/3 z-10">
-                                        <img src={card.image} alt={card.name} className="md:rounded-xl rounded-lg w-full h-auto" />
-                                    </div>
-                                )}
-                            </td>
-                            <td className="px-3 py-4">
-                                {<i title={`${card.set.toUpperCase()}`} alt={`${card.set.toUpperCase()}`} className={`w-6 h-6 items-center flex justify-center icon-container bg-zinc-50 rounded-full ss ss-${card.set} ss-${card.rarity}`}></i>}
-                            </td>
-                            <td className="px-3 py-4">
-                                {card.before_tix}
-                            </td>
-                            <td className="px-3 py-4">
-                                {card.after_tix}
-                            </td>
-                            <td 
-                                className="px-3 py-4 cursor-pointer hover:underline"
-                                onClick={() => handleChartClick(card.mtgo_id)}
-                            >
-                                {card.percentage_difference.toFixed(1)} %
-                            </td>
-                        </tr>
+                                <th 
+                                    scope="row" 
+                                    className="lg:block hidden px-3 py-4 whitespace-nowrap"
+                                >
+                                    {card.mtgo_id}
+                                </th>
+                                <td className="px-3 py-4 relative">
+                                    <a 
+                                        className='hover:underline cursor-pointer' 
+                                        href={card.cardmarket} 
+                                        rel="noreferrer" 
+                                        target='_blank'
+                                        onMouseEnter={() => setHoveredCard(card)}
+                                        onMouseLeave={() => setHoveredCard(null)}
+                                    >
+                                        {card.name}
+                                    </a>
+                                    {hoveredCard === card && (
+                                        <div className="absolute lg:top-4 lg:right-24 md:rounded-xl rounded-lg bg-zinc-600 p-2 lg:w-1/3 md:w-7/12 sm:w-2/3 z-10">
+                                            <img src={card.image} alt={card.name} className="md:rounded-xl rounded-lg w-full h-auto" />
+                                        </div>
+                                    )}
+                                </td>
+                                <td className="px-3 py-4">
+                                    {<i title={`${card.set.toUpperCase()}`} alt={`${card.set.toUpperCase()}`} className={`w-6 h-6 items-center flex justify-center icon-container bg-zinc-50 rounded-full ss ss-${card.set} ss-${card.rarity}`}></i>}
+                                </td>
+                                <td className="px-3 py-4 cursor-pointer"
+                                onClick={() => toggleExpandRow(card.mtgo_id)}>
+                                    {card.before_tix}
+                                </td>
+                                <td className="px-3 py-4 cursor-pointer"
+                                onClick={() => toggleExpandRow(card.mtgo_id)}>
+                                    {card.after_tix}
+                                </td>
+                                <td className="px-3 py-4 cursor-pointer"
+                                onClick={() => toggleExpandRow(card.mtgo_id)}>
+                                    {card.percentage_difference.toFixed(1)} %
+                                </td>
+                            </tr>
+                            {expandedCardId === card.mtgo_id && (
+                                <tr className="odd:bg-zinc-900 even:bg-zinc-800 border-b border-zinc-700" >
+                                    <td colSpan="6" className="px-3 p-4">
+                                        <ChartPopover mtgo_id={card.mtgo_id} />
+                                    </td>
+                                </tr>
+                            )}
+                        </React.Fragment>
                     ))}
                 </tbody>
             </table>
-            
-            {selectedCardId && (
-                <div className="absolute top-16 left-0 z-20">
-                    <ChartPopover mtgo_id={selectedCardId} onClose={() => setSelectedCardId(null)} />
-                </div>
-            )}
         </div>
     );
 }

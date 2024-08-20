@@ -7,7 +7,7 @@ New price history data is automatically fetched from [Scryfall API](https://scry
 
 Users can take advantage of this information, by anticipating similar price spikes in the real world and make data-driven decisions on whether to invest in the cards of the corresponding tabletop game.
 
-The website is currently [live](https://cardflipmarket-manosmin.onrender.com/) on render.com, if anyone wants to give it a quick look instead of deploying it locally. 
+CardFlipMarket is currently [live](https://cardflipmarket-manosmin.onrender.com/) on Render for anyone who wants to give it a quick look, instead of deploying it locally. 
 
 
 

@@ -9,7 +9,7 @@ function Header({ onFetchData }) {
   };
 
   return (
-    <header className='sticky top-0 z-10 lg:text-base text-sm'>
+    <header className='sticky top-0 z-10 lg:text-base text-sm overflow-x-hidden'>
       <nav className="border-zinc-200 px-4 lg:px-6 py-2.5 bg-zinc-950 text-zinc-300">
         <div className="flex lg:flex-row flex-col flex-wrap justify-between items-center" >
           <div className='flex lg:flex-row lg:space-x-8 my-2 text-base font-bold'>

@@ -2,17 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
-import { IoClose } from "react-icons/io5";
 
 Chart.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend);
 
-function ChartPopover({ mtgo_id, onClose }) {
+function ChartPopover({ mtgo_id }) {
     const [priceHistory, setPriceHistory] = useState(null);
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
         const fetchPriceHistory = async () => {
             try {
                 const response = await axios.get(`/api/scryfall/${mtgo_id}`);
+                setLoading(false);
                 setPriceHistory(response.data);
             } catch (error) {
                 console.error('Error fetching price history:', error);
@@ -61,18 +62,13 @@ function ChartPopover({ mtgo_id, onClose }) {
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center">
-            <div className="relative bg-zinc-800 border border-zinc-600 rounded-xl md:w-1/2 w-fit p-8 text-zinc-100">
-            <div className='flex mb-4 font-medium justify-between'>
-                <p>Price History</p>
-                <button onClick={onClose}><IoClose size={25} /></button></div>
-                {chartData ? (
+            <div className="flex items-center md:min-h-80 min-h-48 justify-center md:w-1/3 w-fit p-2 text-zinc-100 mx-auto">
+                {loading ? <p>Loading...</p> : ( chartData ?
                     <Line data={chartData} options={chartOptions} />
-                ) : (
-                    <p>Loading...</p>
+                :
+                    <p>No price history data found.</p>
                 )}
             </div>
-        </div>
     );
 }
 

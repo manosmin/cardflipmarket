@@ -27,7 +27,7 @@ function App() {
   }, []);
 
   return (
-    <div className='overflow-x-hidden bg-zinc-900 flex flex-col min-h-screen'>
+    <div className='bg-zinc-900 flex flex-col min-h-screen'>
       <Header onFetchData={fetchData} />
       {loading ? (
         <div className='text-zinc-100 flex justify-center lg:text-base text-sm mt-10'>Loading...</div>  // Loading state indicator
