@@ -19,7 +19,6 @@ export const getScryfallData = async (req, res) => {
             {
                 $project: {
                     mtgo_id: 1,
-                    // get the keys of the prices object, sort them, and get the last two
                     prices_keys: { $objectToArray: "$prices" }
                 }
             },
@@ -28,9 +27,12 @@ export const getScryfallData = async (req, res) => {
                     mtgo_id: 1,
                     prices_keys: {
                         $map: {
-                            input: { $slice: [{ $reverseArray: "$prices_keys" }, dataRange] }, // get last two elements
+                            input: { $slice: [{ $reverseArray: "$prices_keys" }, dataRange] },
                             as: "price",
-                            in: "$$price.v.tix" // extract 'tix' values for the two latest entries
+                            in: {
+                                tix: "$$price.v.tix", // extract 'tix' values
+                                eur: "$$price.v.eur"  // extract 'eur' values
+                            }
                         }
                     }
                 }
@@ -38,8 +40,10 @@ export const getScryfallData = async (req, res) => {
             {
                 $project: {
                     mtgo_id: 1,
-                    after_tix: { $arrayElemAt: ["$prices_keys", 0] }, // the newest price (last key)
-                    before_tix: { $arrayElemAt: ["$prices_keys", dataRange-1] } // the second newest price (second to last key)
+                    after_tix: { $arrayElemAt: ["$prices_keys.tix", 0] },
+                    before_tix: { $arrayElemAt: ["$prices_keys.tix", dataRange-1] },
+                    after_eur: { $arrayElemAt: ["$prices_keys.eur", 0] },
+                    before_eur: { $arrayElemAt: ["$prices_keys.eur", dataRange-1] }
                 }
             },
             {
@@ -47,15 +51,34 @@ export const getScryfallData = async (req, res) => {
                     mtgo_id: 1,
                     after_tix: 1,
                     before_tix: 1,
-                    percentage_difference: {
+                    after_eur: 1,
+                    before_eur: 1,
+                    percentage_difference_tix: {
                         $cond: [
-                            { $ne: ["$before_tix", 0] }, // ensure before_tix is not zero
+                            { $ne: ["$before_tix", 0] }, 
                             {
                                 $multiply: [
                                     {
                                         $divide: [
                                             { $subtract: ["$after_tix", "$before_tix"] },
                                             "$before_tix"
+                                        ]
+                                    },
+                                    100
+                                ]
+                            },
+                            0
+                        ]
+                    },
+                    percentage_difference_eur: {
+                        $cond: [
+                            { $ne: ["$before_eur", 0] }, 
+                            {
+                                $multiply: [
+                                    {
+                                        $divide: [
+                                            { $subtract: ["$after_eur", "$before_eur"] },
+                                            "$before_eur"
                                         ]
                                     },
                                     100
@@ -70,7 +93,7 @@ export const getScryfallData = async (req, res) => {
                 $match: {
                     after_tix: { $gte: priceThreshold },
                     before_tix: { $exists: true },
-                    percentage_difference: { $gte: percentageThreshold } // filter out results with less than a threshold
+                    percentage_difference_tix: { $gte: percentageThreshold }
                 }
             },
             {
@@ -92,7 +115,10 @@ export const getScryfallData = async (req, res) => {
                     image: "$oracle_card_data.image_uris.normal",
                     after_tix: 1,
                     before_tix: 1,
-                    percentage_difference: 1
+                    after_eur: 1,
+                    before_eur: 1,
+                    percentage_difference_tix: 1,
+                    percentage_difference_eur: 1
                 }
             }
         ]);
@@ -102,6 +128,7 @@ export const getScryfallData = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
 
 export const getPriceHistoryData = async (req, res) => {
     const { mtgo_id } = req.params; // extract mtgo_id from request parameters
@@ -114,20 +141,22 @@ export const getPriceHistoryData = async (req, res) => {
             return res.status(404).json({ message: 'Card not found' });
         }
 
-        // create an array to hold the tix prices along with their dates
-        const tixPriceHistory = [];
+        // create an array to hold the tix and eur prices along with their dates
+        const priceHistory = [];
 
-        // loop through the prices map and extract tix prices with their corresponding dates
+        // loop through the prices map and extract tix and eur prices with their corresponding dates
         for (const [date, value] of cardPrices.prices) {
-            tixPriceHistory.push({
+            priceHistory.push({
                 date: value.date,
-                tix: value.tix 
+                tix: value.tix,
+                eur: value.eur
             });
         }
 
-        // respond with an object containing mtgo_id and the tixPriceHistory array
-        res.json({ mtgo_id, tixPriceHistory });
+        // respond with an object containing mtgo_id and the priceHistory array
+        res.json({ mtgo_id, priceHistory });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 };
+

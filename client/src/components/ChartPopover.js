@@ -24,11 +24,25 @@ function ChartPopover({ mtgo_id }) {
 
     
     const chartData = priceHistory ? {
-        labels: priceHistory.tixPriceHistory.map(entry => new Date (entry.date).toISOString().slice(0, 10)),
-        datasets: [{
-            data: priceHistory.tixPriceHistory.map(entry => entry.tix),
-            borderColor: 'rgb(52 211 153)'
-        }]
+        labels: priceHistory.priceHistory.map(entry => new Date(entry.date).toISOString().slice(0, 10)),
+        datasets: [
+            {
+                label: 'TIX',
+                data: priceHistory.priceHistory.map(entry => entry.tix),
+                borderColor: 'rgb(52, 211, 153)',
+                backgroundColor: 'rgba(52, 211, 153, 0.2)',
+                fill: true,
+                tension: 0.1,
+            },
+            {
+                label: 'EUR',
+                data: priceHistory.priceHistory.map(entry => entry.eur),
+                borderColor: 'rgb(99, 102, 241)',
+                backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                fill: true,
+                tension: 0.1,
+            }
+        ]
     } : null;
 
     
@@ -56,7 +70,10 @@ function ChartPopover({ mtgo_id }) {
         },
         plugins: {
             legend: {
-              display: false
+              display: true,
+              labels: {
+                color: 'rgb(244, 244, 245)',
+            }
             }
           }
     };

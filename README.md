@@ -112,10 +112,8 @@ Then, start the server
 
 ## Screenshots
 
-**Main Page**
+**Home Page**
 ![Screenshot 0](screenshots/ss0.png)
 
-**Price History Chart**
-![Screenshot 1](screenshots/ss1.png)
 
 
