@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ChartPopover from './ChartPopover';
 
 function Table({ data }) {
-    const [sortConfig, setSortConfig] = useState({ key: 'percentage_difference', direction: 'desc' });
+    const [sortConfig, setSortConfig] = useState({ key: 'percentage_difference_tix', direction: 'desc' });
     const [hoveredCard, setHoveredCard] = useState(null);
     const [expandedCardId, setExpandedCardId] = useState(null);
 
@@ -37,7 +37,7 @@ function Table({ data }) {
                         <th scope="col" className="px-3 py-2 hover:text-zinc-100" onClick={() => handleSort('mtgo_id')}>
                             MTGO ID
                         </th>
-                        <th scope="col" className="px-3 py-2 hover:text-zinc-100" onClick={() => handleSort('name')}>
+                        <th scope="col" className="px-3 lg:min-w-80 py-2 hover:text-zinc-100" onClick={() => handleSort('name')}>
                             Name
                         </th>
                         <th scope="col" className="px-3 py-2 hover:text-zinc-100" onClick={() => handleSort('set')}>
@@ -95,7 +95,7 @@ function Table({ data }) {
                                         {card.name}
                                     </a>
                                     {hoveredCard === card && (
-                                        <div className="absolute lg:top-4 lg:right-24 md:rounded-xl rounded-lg bg-zinc-600 p-2 lg:w-1/3 md:w-7/12 sm:w-2/3 z-10">
+                                        <div className="absolute lg:top-4 lg:right-24 md:rounded-xl rounded-lg bg-zinc-600 p-2 lg:w-2/5 md:w-7/12 sm:w-2/3 z-10">
                                             <img src={card.image} alt={card.name} className="md:rounded-xl rounded-lg w-full h-auto" />
                                         </div>
                                     )}

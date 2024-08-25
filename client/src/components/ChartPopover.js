@@ -31,7 +31,7 @@ function ChartPopover({ mtgo_id }) {
                 data: priceHistory.priceHistory.map(entry => entry.tix),
                 borderColor: 'rgb(52, 211, 153)',
                 backgroundColor: 'rgba(52, 211, 153, 0.2)',
-                fill: true,
+                fill: false,
                 tension: 0.1,
             },
             {
@@ -39,7 +39,7 @@ function ChartPopover({ mtgo_id }) {
                 data: priceHistory.priceHistory.map(entry => entry.eur),
                 borderColor: 'rgb(99, 102, 241)',
                 backgroundColor: 'rgba(99, 102, 241, 0.2)',
-                fill: true,
+                fill: false,
                 tension: 0.1,
             }
         ]
