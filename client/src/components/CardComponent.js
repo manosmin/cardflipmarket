@@ -29,12 +29,11 @@ function CardComponent({ card }) {
           <p><span className='font-semibold'>Name:</span> {card.name}</p>
           <p><span className='font-semibold'>Set:</span> {card.set}</p>
           <p><span className='font-semibold'>Rarity:</span> {card.rarity}</p>
-          <p><span className='font-semibold'>TIX Today:</span> {card.after_tix}</p>
-          <p><span className='font-semibold'>EUR Today:</span> {card.after_eur}</p>
-          <div className='font-semibold flex items-center justify-center bg-zinc-200 hover:bg-zinc-300 active:scale-95 p-4 rounded-lg text-zinc-800 cursor-pointer space-x-2'>
-            <a href={card.cardmarket} rel='noopener noreferrer' target='_blank'>Buy now</a> 
-            <FaExternalLinkAlt />
-          </div>
+          <p>{card.after_tix} <span className='font-semibold'>TIX</span> </p>
+          { card.after_eur && <p>{card.after_eur} <span className='font-semibold'>EUR</span></p>}
+          <a href={card.cardmarket} rel='noopener noreferrer' target='_blank' className='font-semibold flex items-center justify-center bg-zinc-200 hover:bg-zinc-300 active:scale-95 p-4 rounded-lg text-zinc-800 cursor-pointer space-x-2'>
+            Buy now &nbsp; <FaExternalLinkAlt />
+          </a>
         </div>
       </div>
       <ChartPopover mtgo_id={card.mtgo_id} />
