@@ -26,7 +26,7 @@ app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
 
-connectDB().then(() => { runScheduledTask(); });
+connectDB().then(() => { });
 
 if (process.env.NODE_ENV === "PRODUCTION") {
   
