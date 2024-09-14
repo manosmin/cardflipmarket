@@ -79,7 +79,7 @@ function ChartPopover({ mtgo_id }) {
     };
 
     return (
-            <div className="flex items-center md:min-h-80 min-h-48 justify-center md:w-1/3 w-fit p-2 text-zinc-100 mx-auto">
+            <div className="flex items-center w-fit md:w-1/3 justify-center text-zinc-100 mx-auto">
                 {loading ? <p>Loading...</p> : ( chartData ?
                     <Line data={chartData} options={chartOptions} />
                 :

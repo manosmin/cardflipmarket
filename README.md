@@ -1,7 +1,7 @@
 
-# Card Flip Market
+# Card Price Tracker
 
-A website that monitors prices in a digital collectible card game named **[MTGO](https://www.mtgo.com/en/mtgo)**, aiming to discover and show potential price spikes or collapses. It uses bulk data fetched on a daily basis from **[Scryfall](https://scryfall.com/docs/api)** and inserts into a database, providing card price history and other relevant information through a REST API.
+Web application that monitors prices in a digital collectible card game named **[MTGO](https://www.mtgo.com/en/mtgo)**, aiming to discover and show potential price spikes or collapses. It uses bulk data fetched on a daily basis from **[Scryfall](https://scryfall.com/docs/api)** and inserts into a database, providing card price history and other relevant information through a REST API.
 
 **It's currently being hosted and maintained, in order to help the game's player base catch-up on the real market, as well as make data-driven decisions on buying or selling digital or real collectible cards of the specified game.**
 
@@ -108,7 +108,6 @@ Then, start the server
 
 ## Screenshots
 
-**Home Page**
 ![Screenshot 0](screenshots/ss0.png)
 
 

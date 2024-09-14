@@ -15,7 +15,7 @@ function Header({ onFetchData }) {
           <div className='flex lg:flex-row lg:space-x-8 my-2 text-base font-bold'>
             <a href='/#' 
             className='font-bold text-zinc-100 uppercase cursor-pointer' 
-            rel='noreferrer'>CardFlipMarket</a>
+            rel='noreferrer'>Card Price Tracker</a>
           </div>
           <ul className="flex lg:flex-row lg:space-x-8 my-2 font-bold animate-slideIn opacity-0" style={{ "--delay": 0.2 + "s" }}>
             <li>

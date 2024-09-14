@@ -11,8 +11,8 @@ const timeRanges = {
 };
 
 export const getScryfallData = async (req, res) => {
-    const { range } = req.query; // get the time range from query parameters
-    const dataRange = timeRanges[range] || timeRanges['today']; // default to 'today'
+    const { range } = req.query;
+    const dataRange = timeRanges[range] || timeRanges['today'];
     
     try {
         const data = await OracleCardPrices.aggregate([
@@ -30,8 +30,8 @@ export const getScryfallData = async (req, res) => {
                             input: { $slice: [{ $reverseArray: "$prices_keys" }, dataRange] },
                             as: "price",
                             in: {
-                                tix: "$$price.v.tix", // extract 'tix' values
-                                eur: "$$price.v.eur"  // extract 'eur' values
+                                tix: "$$price.v.tix",
+                                eur: "$$price.v.eur"
                             }
                         }
                     }
@@ -131,20 +131,17 @@ export const getScryfallData = async (req, res) => {
 
 
 export const getPriceHistoryData = async (req, res) => {
-    const { mtgo_id } = req.params; // extract mtgo_id from request parameters
+    const { mtgo_id } = req.params;
 
     try {
-        // find the document by mtgo_id
         const cardPrices = await OracleCardPrices.findOne({ mtgo_id });
 
         if (!cardPrices) {
             return res.status(404).json({ message: 'Card not found' });
         }
 
-        // create an array to hold the tix and eur prices along with their dates
         const priceHistory = [];
 
-        // loop through the prices map and extract tix and eur prices with their corresponding dates
         for (const [date, value] of cardPrices.prices) {
             priceHistory.push({
                 date: value.date,
@@ -153,7 +150,6 @@ export const getPriceHistoryData = async (req, res) => {
             });
         }
 
-        // respond with an object containing mtgo_id and the priceHistory array
         res.json({ mtgo_id, priceHistory });
     } catch (err) {
         res.status(500).json({ message: err.message });
