@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import ChartPopover from './ChartPopover';
-import { FaExternalLinkAlt } from "react-icons/fa";
+import CardComponent from './CardComponent';
 
 
 function Table({ data }) {
@@ -35,37 +34,37 @@ function Table({ data }) {
             <table className="text-xs lg:text-sm w-full text-left rtl:text-right text-zinc-200">
                 <thead className="text-zinc-400 text-md uppercase cursor-pointer bg-zinc-950">
                     <tr>
-                        <th scope="col" className="px-3 py-2 hover:text-zinc-100" onClick={() => handleSort('mtgo_id')}>
+                        <th scope="col" className="px-3 py-4 hover:text-zinc-100" onClick={() => handleSort('mtgo_id')}>
                             MTGO ID
                         </th>
                         <th scope="col" className="px-3 lg:min-w-80 py-2 hover:text-zinc-100" onClick={() => handleSort('name')}>
                             Name
                         </th>
-                        <th scope="col" className="px-3 py-2 hover:text-zinc-100" onClick={() => handleSort('set')}>
+                        <th scope="col" className="px-3 py-4 hover:text-zinc-100" onClick={() => handleSort('set')}>
                             Set
                         </th>
-                        <th scope="col" className="hidden lg:table-cell px-3 py-2 hover:text-zinc-100" onClick={() => handleSort('before_tix')}>
+                        <th scope="col" className="hidden lg:table-cell px-3 py-4 hover:text-zinc-100" onClick={() => handleSort('before_tix')}>
                             TIX Before
                         </th>
-                        <th scope="col" className="hidden lg:table-cell px-3 py-2 hover:text-zinc-100" onClick={() => handleSort('after_tix')}>
+                        <th scope="col" className="hidden lg:table-cell px-3 py-4 hover:text-zinc-100" onClick={() => handleSort('after_tix')}>
                             TIX After
                         </th>
                         <th 
                             scope="col" 
-                            className="px-3 py-2 hover:text-zinc-100" 
+                            className="px-3 py-4 hover:text-zinc-100" 
                             onClick={() => handleSort('percentage_difference_tix')}
                         >
                             TIX Diff %
                         </th>
-                        <th scope="col" className="hidden lg:table-cell px-3 py-2 hover:text-zinc-100" onClick={() => handleSort('before_eur')}>
+                        <th scope="col" className="hidden lg:table-cell px-3 py-4 hover:text-zinc-100" onClick={() => handleSort('before_eur')}>
                             EUR Before
                         </th>
-                        <th scope="col" className="hidden lg:table-cell px-3 py-2 hover:text-zinc-100" onClick={() => handleSort('after_eur')}>
+                        <th scope="col" className="hidden lg:table-cell px-3 py-4 hover:text-zinc-100" onClick={() => handleSort('after_eur')}>
                             EUR After
                         </th>
                         <th 
                             scope="col" 
-                            className="px-3 py-2 hover:text-zinc-100" 
+                            className="px-3 py-4 hover:text-zinc-100" 
                             onClick={() => handleSort('percentage_difference_eur')}
                         >
                             EUR Diff %
@@ -114,22 +113,7 @@ function Table({ data }) {
                             {expandedCardId === card.mtgo_id && (
                                 <tr className="odd:bg-zinc-900 even:bg-zinc-800 border-b border-zinc-700" >
                                     <td colSpan="12" className="px-3 p-4">
-                                        <div className='flex flex-col md:flex-row items-center justify-center space-y-6 mx-auto'>
-                                            <div className='flex flex-row justify-center space-x-8'>
-                                                <img src={card.image} alt={card.name} className="xl:rounded-2xl lg:rounded-xl md:rounded-md rounded-lg w-1/2 md:w-1/3" />
-                                                <div className='flex flex-col space-y-4 justify-center items-start uppercase'>
-                                                    <p><span className='font-semibold'>Name:</span>  {card.name}</p>
-                                                    <p><span className='font-semibold'>Set:</span> {card.set}</p>
-                                                    <p><span className='font-semibold'>Rarity:</span> {card.rarity}</p>
-                                                    <p><span className='font-semibold'>TIX Today:</span>  {card.after_tix}</p>
-                                                    <p><span className='font-semibold'>EUR Today:</span>  {card.after_eur}</p>
-                                                    <div className='font-semibold flex items-center justify-center bg-zinc-200 p-4 rounded-lg text-zinc-800 cursor-pointer space-x-2'>
-                                                    <a href={card.cardmarket} rel='noopener noreferrer' target='_blank' > Buy now 
-                                                    </a> <FaExternalLinkAlt/> </div>
-                                                </div>
-                                            </div>
-                                            <ChartPopover mtgo_id={card.mtgo_id} />
-                                        </div>
+                                        <CardComponent card={card} />
                                     </td>
                                 </tr>
                             )}

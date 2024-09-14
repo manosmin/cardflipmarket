@@ -80,7 +80,9 @@ function ChartPopover({ mtgo_id }) {
 
     return (
             <div className="flex items-center w-fit md:w-1/3 justify-center text-zinc-100 mx-auto">
-                {loading ? <p>Loading...</p> : ( chartData ?
+                {loading ? <div className="flex items-center justify-center">
+                            <div className="w-8 h-8 border-4 border-zinc-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+                           </div> : ( chartData ?
                     <Line data={chartData} options={chartOptions} />
                 :
                     <p>No price history data found.</p>
