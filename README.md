@@ -93,16 +93,16 @@ Before you build the application, you should create an `.env` file in the root f
 
 ## Run Locally
 
-You should build both front and back end using 
+Build both front and back end using 
 
 ```bash
   npm run build
 ```
 
-Then, start the server
+and start the server
 
 ```bash
-  node index.js
+  npm run server
 ```
 
 
