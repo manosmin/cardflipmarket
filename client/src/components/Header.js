@@ -12,10 +12,11 @@ function Header({ onFetchData }) {
     <header className='sticky top-0 z-10 lg:text-base text-sm overflow-x-hidden'>
       <nav className="border-zinc-200 px-4 lg:px-6 py-2.5 bg-zinc-950 text-zinc-300">
         <div className="flex lg:flex-row flex-col flex-wrap justify-between items-center" >
-          <div className='flex lg:flex-row lg:space-x-8 my-2 text-base font-bold'>
+          <div className='flex flex-col md:flex-row md:space-x-2 justify-center items-center text-lg font-bold'>
             <a href='/#' 
             className='font-bold text-zinc-100 uppercase cursor-pointer' 
-            rel='noreferrer'>Card Price Tracker</a>
+            rel='noreferrer'>MTGO Price Tracker</a>
+            <span className='font-bold text-sm my-2 text-zinc-400 uppercase '>made by <a href='https://github.com/manosmin' rel='noopener noreferrer' target='_blank' className='hover:underline underline-offset-4 decoration-4 hover:text-zinc-100'>github.com/manosmin</a></span>
           </div>
           <ul className="flex lg:flex-row lg:space-x-8 my-2 font-bold animate-slideIn opacity-0" style={{ "--delay": 0.2 + "s" }}>
             <li>
