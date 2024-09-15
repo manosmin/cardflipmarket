@@ -19,36 +19,44 @@ export const updateOrInsertPrices = async (jsonData, updatedAt) => {
             const existingRecord = await OracleCardPrices.findOne({ mtgo_id });
 
             if (existingRecord) {
-                const nextKey = getNextKey(existingRecord.prices);
-                
+                const currentPrices = existingRecord.prices;
+
+                const pricesMap = currentPrices;
+
+                if (pricesMap.size >= 15) {
+                    const oldestKey = Math.min(...Array.from(pricesMap.keys()).map(Number));
+                    pricesMap.delete(oldestKey.toString());
+                }
+
+                const nextKey = getNextKey(pricesMap);
+
+                pricesMap.set(nextKey, {
+                    eur: prices.eur,
+                    tix: prices.tix,
+                    date: updatedAt
+                });
+
                 bulkOps.push({
                     updateOne: {
                         filter: { mtgo_id },
                         update: {
-                            $set: {
-                                [`prices.${nextKey}`]: {
-                                    eur: prices.eur,
-                                    tix: prices.tix,
-                                    date: updatedAt
-                                }
-                            }
+                            prices: Object.fromEntries(pricesMap)
                         }
                     }
                 });
             } else {
-                const newPriceEntry = {
-                    '1': {
-                        eur: prices.eur,
-                        tix: prices.tix,
-                        date: updatedAt
-                    }
-                };
+                const newPriceEntry = new Map();
+                newPriceEntry.set('1', {
+                    eur: prices.eur,
+                    tix: prices.tix,
+                    date: updatedAt
+                });
 
                 bulkOps.push({
                     insertOne: {
                         document: {
                             mtgo_id,
-                            prices: newPriceEntry
+                            prices: Object.fromEntries(newPriceEntry)
                         }
                     }
                 });

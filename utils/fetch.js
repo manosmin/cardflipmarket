@@ -17,7 +17,7 @@ const processOracleCards = async () => {
         const bulkDataResponse = await axios.get('https://api.scryfall.com/bulk-data');
         const bulkData = bulkDataResponse.data.data;
 
-        const oracleCardsData = bulkData.find(item => item.type === 'oracle_cards');
+        const oracleCardsData = bulkData.find(item => item.type === 'default_cards');
 
         if (!oracleCardsData) {
             console.error('Oracle Cards data not found in the API response');
