@@ -14,11 +14,11 @@ function Header({ onFetchData }) {
         <div className="flex lg:flex-row flex-col flex-wrap justify-between items-center" >
           <div className='flex flex-col md:flex-row md:space-x-2 justify-center items-center text-lg font-bold'>
             <a href='/#' 
-            className='font-bold text-zinc-100 uppercase cursor-pointer' 
+            className='font-bold text-zinc-100 uppercase' 
             rel='noreferrer'>MTGO Price Tracker</a>
             <span className='font-bold text-sm my-2 text-zinc-400 uppercase '>made by <a href='https://github.com/manosmin' rel='noopener noreferrer' target='_blank' className='hover:underline underline-offset-4 decoration-4 hover:text-zinc-100'>github.com/manosmin</a></span>
           </div>
-          <ul className="flex lg:flex-row lg:space-x-8 my-2 font-bold animate-slideIn opacity-0" style={{ "--delay": 0.2 + "s" }}>
+          <ul className="flex lg:flex-row lg:space-x-8 font-bold animate-slideIn opacity-0" style={{ "--delay": 0.2 + "s" }}>
             <li>
               <button
                 className={`${activeButton === 'today' ? 'text-zinc-100 underline decoration-4' : 'text-zinc-400'} block py-2 pr-4 pl-3 lg:border-0 lg:p-0 hover:text-zinc-100 hover:underline hover:decoration-4 border-zinc-700 underline-offset-8 uppercase`}
