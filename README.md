@@ -22,6 +22,7 @@ You can check it out [here](https://cardflipmarket-manosmin.onrender.com/), or d
     │   ├── public
     │   ├── src/
     │   │   ├── components/
+    │   │   │   ├── CardComponent.js
     │   │   │   ├── ChartPopover.js
     │   │   │   ├── Footer.js
     │   │   │   ├── Header.js
