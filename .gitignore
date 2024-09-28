@@ -15,11 +15,6 @@
 /build
 .env
 
-# deployment
-.dockerignore
-docker-compose.yaml
-Dockerfile
-
 # misc
 .DS_Store
 .env.local
