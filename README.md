@@ -1,25 +1,17 @@
 
 # Card Price Tracker
 
-Web application that monitors prices in a digital collectible card game named **[MTGO](https://www.mtgo.com/en/mtgo)**, aiming to discover and show potential price spikes or collapses. It uses bulk data fetched on a daily basis from **[Scryfall](https://scryfall.com/docs/api)** and inserts into a database, providing card price history and other relevant information through a REST API.
+A web application designed to track and analyze the prices of items in a digital collectible card game named [MTGO](https://www.mtgo.com/en/mtgo), helping players spot potential price spikes on a daily basis.
 
-**It's currently being hosted and maintained, in order to help the game's player base catch-up on the real market, as well as make data-driven decisions on buying or selling digital or real collectible cards of the specified game.**
+It's currently being hosted and maintained, in order to help the community make informed and data-driven decisions on buying, selling and trading their cards.
 
-*This project is live **[here](https://cardflipmarket-manosmin.onrender.com/)** in order to give it a quick look instead of deploying it locally.*
+You can check it out [here](https://cardflipmarket-manosmin.onrender.com/), or deploy it on your machine following the instructions given below.
 
+## Tech Stack
 
+<img src="https://github.com/tandpfun/skill-icons/raw/main/icons/MongoDB.svg" alt="mongodb" height=45> <img src="https://github.com/tandpfun/skill-icons/raw/main/icons/ExpressJS-Dark.svg" alt="expressjs" height=45> <img src="https://github.com/tandpfun/skill-icons/raw/main/icons/React-Dark.svg" alt="reactjs" height=45> <img src="https://github.com/tandpfun/skill-icons/raw/main/icons/NodeJS-Dark.svg" alt="nodejs" height=45>
 
-
-## Tech stack
-
-**Front End:** React
-
-**Back End:** Node.js, Express.js, MongoDB
-
-**Libraries:** Chart.js, node-cron, mongoose, axios
-
-
-## Project Structure
+## File Structure
 
 ```bash
 .
@@ -30,6 +22,7 @@ Web application that monitors prices in a digital collectible card game named **
     │   ├── public
     │   ├── src/
     │   │   ├── components/
+    │   │   │   ├── CardComponent.js
     │   │   │   ├── ChartPopover.js
     │   │   │   ├── Footer.js
     │   │   │   ├── Header.js
@@ -62,24 +55,7 @@ Web application that monitors prices in a digital collectible card game named **
 
 ```
 
-In the root directory, there is a server file with an endpoint to hit on, and some folders for each one of specific tasks done in the back end.
-
-* **config**→ *Configures and connects to the database.*
-* **models**→ *Schemas for card info and card price history documents.*
-* **routes**→ *Configures and calls a specific controller when user hits the endpoint.*
-* **controllers**→ *Functions that do certain operations in the database, when users ask for them.*
-* **utils**→ *Necessary files needed in our application. More specifically:*
-    * **fetch.js**→ *Fetches bulk data from Scryfall (using [axios](https://axios-http.com/docs/intro))*
-    * **schedule.js**→ *Processes card data on a daily basis (using [node-cron](https://www.npmjs.com/package/node-cron))*
-    * **upload.js**→ *Inserts and updates cards and price history collections in the database (using [mongoose](https://mongoosejs.com/))*
-
-The client directory is where the front end sits.
-
-- **public**→ *The index.html file and the website logo.*
-- **src**→ *Source code for the application.*
-- **components**→ *Different components of application, including the table where the cards data is shown and the price history chart.*
-
-## Environment Variables
+## Environment
 
 Before you build the application, you should create an `.env` file in the root folder using your own variables, e.g.
 
@@ -91,24 +67,20 @@ Before you build the application, you should create an `.env` file in the root f
 
 
 
-## Run Locally
+## Installation
 
-Build both front and back end using 
+Build both client and server using
 
 ```bash
   npm run build
 ```
 
-and start the server
+and start it
 
 ```bash
   npm run server
 ```
 
-
-## Screenshots
-
-![Screenshot 0](screenshots/ss0.png)
 
 
 
