@@ -26,6 +26,14 @@ const processOracleCards = async () => {
 
         const { download_uri, updated_at } = oracleCardsData;
 
+        const updatedAtDate = new Date(updated_at);
+        const updatedHourUTC = updatedAtDate.getUTCHours();
+
+        if (updatedHourUTC < 21 || updatedHourUTC >= 22) {
+            console.error(`File update time: ${updatedAtDate.toLocaleString("en-US", { timeZone: "UTC" })}. Skipping processing.`);
+            return;
+        }
+
         const jsonFileName = path.basename(download_uri);
         const jsonFilePath = path.join(JSON_DIR, jsonFileName);
 
