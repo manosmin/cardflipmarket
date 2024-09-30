@@ -21,7 +21,7 @@ const getLocalCronExpression = (targetHourUTC, targetMinuteUTC) => {
 const runScheduledTask = async () => {
     await processOracleCards();
 
-    const cronExpression = getLocalCronExpression(9, 30);
+    const cronExpression = getLocalCronExpression(21, 30);
 
     cron.schedule(cronExpression, async () => {
         console.log('Running scheduled task: processOracleCards');
