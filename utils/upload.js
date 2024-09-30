@@ -23,7 +23,7 @@ export const updateOrInsertPrices = async (jsonData, updatedAt) => {
 
                 const pricesMap = currentPrices;
 
-                if (pricesMap.size >= 15) {
+                if (pricesMap.size > 16) {
                     const oldestKey = Math.min(...Array.from(pricesMap.keys()).map(Number));
                     pricesMap.delete(oldestKey.toString());
                 }
